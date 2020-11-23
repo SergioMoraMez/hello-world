@@ -1,0 +1,3664 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <link rel="icon" type="image/png" href="./assets/img/linea.png" />
+
+    <title>Analítica Digital</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.0-alpha.16/tailwind.min.css"
+      integrity="sha512-Rho6HzwBF1i1Y+HNljdwJ2/6eQ4koDSeQF2OdtPqNJYv8u+M4kuKk6NJ/pgttyCvB/BDdWmGvxx1qqB7f5CrFg=="
+      crossorigin="anonymous"
+    />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+    <!-- Range slider -->
+    <link
+      rel="stylesheet"
+      href="http://bootstraptema.ru/plugins/2018/irs/ion.rangeSlider.skin.css"
+    />
+    <link rel="stylesheet" href="./assets/css/rangeSlider.css" />
+
+    <link rel="stylesheet" href="./assets/css/main.css" />
+  </head>
+  <body>
+    <div id="app" class="bg-light">
+      <!-- navbar -->
+      <div id="my_nav">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+          <div class="navbar-brand">
+            <img
+              style="max-width: 80px"
+              src="./assets/img/coppel.png"
+              alt="uaem"
+            />
+          </div>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#"
+                  >Inicio <span class="sr-only">(current)</span></a
+                >
+              </li>
+              <!--<li class="nav-item">
+                <a class="nav-link" href="#">Enlace</a>
+              </li>
+            </ul>
+          </div>-->
+        </nav>
+      </div>
+      <!-- End navbar -->
+
+      <!-- Content -->
+      <main id="content" class="py-5">
+        <header class="content__header">
+          <h1 class="text-center text-2xl">Modelos de Segmentación y Recomendación de Analítica Digital</h1>
+          
+
+          <!-- Modal -->
+          <div class="text-center my-4">
+            <!-- Button trigger modal -->
+            <button
+              type="button"
+              class="btn btn-link"
+              data-toggle="modal"
+              data-target="#exampleModal"
+            >
+              Da clic y lee las instrucciones
+            </button>
+
+            <!-- Modal -->
+            <div
+              class="modal fade"
+              id="exampleModal"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <h2 class="text-xl">
+                      1.- Elije el tipo de Modelo que requieres para tu campaña
+                      o prueba.<br />
+                      <pre></pre>
+                      2.- Lee las descripciones de cada Modelo y selecciona el
+                      que mas se ajuste a tus necesidades.<br />
+                      <pre></pre>
+                      3.- Escoje las caracteristicas mas apropiadas.<br />
+                      <pre></pre>
+                      4.- Puedes filtrar los resultados de tu Modelo en
+                      combinación con otras categorias.<br />
+                      <pre></pre>
+                      5.- Selecciona el formato y datos de salida de tu segmento
+                      o recomendación.
+                    </h2>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                    >
+                      Cerrar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="content__body p-4">
+          <!-- Form steps -->
+          <div class="container-fluid mb-4">
+            <div class="multisteps-form__progress">
+              <!-- 
+                Se iteran los pasos que debe seguir el usuario
+              -->
+              <button
+                v-for="(paso, index) in pasos"
+                class="multisteps-form__progress-btn text-sm"
+                :class="{ 'js-active': paso.active }"
+                type="button"
+                v-on:click="onClickSeleccionarPaso(index)"
+              >
+                {{ paso.title }}
+              </button>
+            </div>
+          </div>
+          <!-- End steps -->
+
+          <!-- Content steps -->
+          <div class="container-fluid py-4 bg-white shadow rounded">
+            <!-- SECCIÓN MODELOS --->
+            <section
+              v-show="pasoSeleccionado === 0"
+              class="mt-3"
+              data-animation="scaleIn"
+            >
+              <article>
+                <h3 class="text-center">
+                  ¿Que tipo de modelo quieres utilizar?
+                </h3>
+                <div class="card my-4">
+                  <div class="card-body">
+                    <div
+                      class="container flex flex-col md:flex-row md:justify-center"
+                    >
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          id="optionModelosSegmentacion"
+                          value="modelosSegmentacion"
+                          v-model="modeloSeleccionado"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="optionModelosSegmentacion"
+                          >Segmentar Clientes</label
+                        >
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          id="optionModelosRecomendacion"
+                          value="modelosRecomendacion"
+                          v-model="modeloSeleccionado"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="optionModelosRecomendacion"
+                          >Recomendar Productos</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Modelos de segmentación -->
+                <div v-show="modeloSeleccionado === 'modelosSegmentacion'">
+                  <div class="container">
+                    <h2 class="text-center">Modelos de Segmentación</h2>
+                    <p class="text-center">
+                      Elige el modelo de segmentación de clientes que mas se
+                      ajuste a tus necesidades.
+                    </p>
+                  </div>
+
+                  <div class="accordion" id="accordionExample">
+                    <!-- Accordion card: #1 -->
+                    <div class="card">
+                      <div class="card-header" id="headingOne">
+                        <button
+                          class="btn btn-link btn-block text-left"
+                          type="button"
+                          data-toggle="collapse"
+                          data-target="#collapseOne"
+                          aria-expanded="true"
+                          aria-controls="collapseOne"
+                        >
+                          <h5 class="text-xl">RFM por Categorias</h5>
+                          <p class="text-sm">
+                            Consiste en clasificar a los clientes Coppel digitales mediante tres
+                            variables indicadoras:<br />
+                            Recency (Tiempo transcurrido desde su ultima
+                            compra)<br />
+                            Frecuency (Numero de compras)<br />
+                            Money (Valor de las compras totales del
+                            cliente).Este modelo califica cada variable del 1 al
+                            4, donde 4 es el valor mas alto.
+                          </p>
+                        </button>
+                      </div>
+
+                      <div
+                        id="collapseOne"
+                        class="collapse"
+                        aria-labelledby="headingOne"
+                        data-parent="#accordionExample"
+                      >
+                        <div class="card-body">
+                          <form>
+                            <p class="text-center mb-4">
+                              Elije las variables del modelo RFM por Categorias
+                              mas adecuadas a tu campaña.
+                            </p>
+                            <div class="form-row mb-4">
+                              <div class="form-group col-12 col-lg-4 mb-4">
+                                <h5>Area</h5>
+
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkAreaOp_1"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkAreaOp_1"
+                                  >
+                                    Muebles
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkAreaOp_2"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkAreaOp_2"
+                                  >
+                                    Ropa
+                                  </label>
+                                </div>
+                              </div>
+                              <div class="form-group col-12 col-lg-4 mb-4">
+                                <h5>Categorias de productos</h5>
+                                <select id="inputState" class="form-control">
+                                  <option>Zapato infantil</option>
+                                  <option>Zapato dama</option>
+                                  <option>Zapato caballero</option>
+                                  <option>Transporte y movilidad</option>
+                                </select>
+                              </div>
+                              <div class="form-group col-12 col-lg-4 mb-4">
+                                <h5>Tipo de compra</h5>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkCompraOp_1"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkCompraOp_1"
+                                  >
+                                    Crédito
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkCompraOp_2"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkCompraOp_2"
+                                  >
+                                    Contado
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="form-row">
+                              <div class="form-group col-12 col-lg-4">
+                                <h5>R=Recency</h5>
+                                <p>
+                                  Tiempo transcurrido desde su ultima compra
+                                </p>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRecencyOp_4"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRecencyOp_4"
+                                  >
+                                    4
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRecencyOp_3"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRecencyOp_3"
+                                  >
+                                    3
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRecencyOp_2"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRecencyOp_2"
+                                  >
+                                    2
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRecencyOp_1"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRecencyOp_1"
+                                  >
+                                    1
+                                  </label>
+                                </div>
+                              </div>
+                              <div class="form-group col-12 col-lg-4">
+                                <h5>F=Frecuency</h5>
+                                <p>Numero de compras</p>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkFrecuencyOp_4"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkFrecuencyOp_4"
+                                  >
+                                    4
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkFrecuencyOp_3"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkFrecuencyOp_3"
+                                  >
+                                    3
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkFrecuencyOp_2"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkFrecuencyOp_2"
+                                  >
+                                    2
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkFrecuencyOp_1"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkFrecuencyOp_1"
+                                  >
+                                    1
+                                  </label>
+                                </div>
+                              </div>
+                              <div class="form-group col-12 col-lg-4">
+                                <h5>M=Money</h5>
+                                <p>Valor de las compras totales del cliente</p>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkMoneyOp_4"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkMoneyOp_4"
+                                  >
+                                    4
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkMoneyOp_3"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkMoneyOp_3"
+                                  >
+                                    3
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkMoneyOp_2"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkMoneyOp_2"
+                                  >
+                                    2
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkMoneyOp_1"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkMoneyOp_1"
+                                  >
+                                    1
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Accordion card: #2 -->
+                    <div class="card">
+                      <div class="card-header" id="headingTwo">
+                        <button
+                          class="btn btn-link btn-block text-left collapsed"
+                          type="button"
+                          data-toggle="collapse"
+                          data-target="#collapseTwo"
+                          aria-expanded="false"
+                          aria-controls="collapseTwo"
+                        >
+                          <h5 class="text-xl">SPC "Probabilidad de compra"</h5>
+                          <p class="text-sm">
+                            Este modelo clasifica a los clientes acuerdo al
+                            número de compras y tiempo transcurrido entre
+                            compras por medios digitales y los divide<br />
+                            por estrategia de comunicación y probabilidad de
+                            compra.
+                          </p>
+                        </button>
+                      </div>
+                      <div
+                        id="collapseTwo"
+                        class="collapse"
+                        aria-labelledby="headingTwo"
+                        data-parent="#accordionExample"
+                      >
+                        <div class="card-body">
+                          <form>
+                            <p class="text-center">
+                              Elije las variables del modelo SPC "Probabilidad
+                              de compra" mas adecuadas a tu campaña.
+                            </p>
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <h5>Retencion del cliente</h5>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRetencionOp_1"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRetencionOp_1"
+                                  >
+                                    Alta probabilidad de compra
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRetencionOp_2"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRetencionOp_2"
+                                  >
+                                    Baja probabilidad de compra
+                                  </label>
+                                </div>
+                              </div>
+                              <div class="form-group col-md-6">
+                                <h5>Recuperacion del cliente</h5>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRetencionOp_3"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRetencionOp_3"
+                                  >
+                                    Alta probabilidad de compra
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRetencionOp_4"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRetencionOp_4"
+                                  >
+                                    Baja probabilidad de compra
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Accordion card: #3 -->
+                    <div class="card">
+                      <div class="card-header" id="headingThree">
+                        <button
+                          class="btn btn-link btn-block text-left collapsed"
+                          type="button"
+                          data-toggle="collapse"
+                          data-target="#collapseThree"
+                          aria-expanded="false"
+                          aria-controls="collapseThree"
+                        >
+                          <h5 class="text-xl">Puntualidad "N"</h5>
+                          <p class="text-sm">
+                            Utiliza diversas variables económicas, demográficas
+                            y de perfil digital que permite predecir la
+                            puntualidad de abono<br />
+                            para Clientes clasificación "N" antes de que sus
+                            meses de maduración permitan clasificarlos en algun
+                            tipo de puntualidad.
+                          </p>
+                        </button>
+                      </div>
+                      <div
+                        id="collapseThree"
+                        class="collapse show"
+                        aria-labelledby="headingThree"
+                        data-parent="#accordionExample"
+                      >
+                        <div class="card-body">
+                          <p class="text-center">
+                            Elije las variables del modelo Puntualidad "N" mas
+                            adecuadas a tu campaña.
+                          </p>
+                          <h5>Predicción de Puntualidad</h5>
+                          <div
+                            class="flex flex-col md:flex-row md:justify-around"
+                          >
+                            <div class="form-check form-check-inline">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="chkPrediccion_1"
+                                value="option1"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="chkPrediccion_1"
+                                >Cliente A</label
+                              >
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="chkPrediccion_2"
+                                value="option2"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="chkPrediccion_2"
+                                >Cliente B</label
+                              >
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="chkPrediccion_3"
+                                value="option3"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="chkPrediccion_3"
+                                >Cliente C</label
+                              >
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="inlineCheckbox2"
+                                value="option2"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="inlineCheckbox2"
+                                >Cliente D</label
+                              >
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="chkPredicion_4"
+                                value="option3"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="chkPredicion_4"
+                                >Cliente Z</label
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End modelos de segmentación -->
+
+                <!-- Modelos de recomendación -->
+                <div v-show="modeloSeleccionado === 'modelosRecomendacion'">
+                  <div class="container mt-4">
+                    <h2 class="text-center">Modelos de Recomendación</h2>
+                    <p class="text-center">
+                      Elige el modelo de recomendación de productos que mas se
+                      ajuste a tus necesidades.
+                    </p>
+                  </div>
+
+                  <div class="accordion" id="accordionExample">
+                    <div class="card">
+                      <div class="card-header" id="heading1">
+                        <button
+                          class="btn btn-link btn-block text-left"
+                          type="button"
+                          data-toggle="collapse"
+                          data-target="#modelosRecomendacion_1"
+                          aria-expanded="true"
+                          aria-controls="modelosRecomendacion_1"
+                        >
+                          ejemplo #1
+                        </button>
+                      </div>
+
+                      <div
+                        id="modelosRecomendacion_1"
+                        class="collapse show"
+                        aria-labelledby="heading1"
+                        data-parent="#modelosRecomendacion_1"
+                      >
+                        <div class="card-body"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End modelos de recomendación -->
+              </article>
+            </section>
+            <!-- END MODELOS -->
+
+            <!-- SECCIÓN SOCIODEMOGRÁFICOS -->
+            <section
+              v-show="pasoSeleccionado === 1"
+              class="mt-3"
+              data-animation="scaleIn"
+            >
+              <article>
+                <h3 class="text-center">Categoria Sociodemograficos</h3>
+                <p class="text-center">
+                  En esta categoria puedes filtrar por caracteristicas
+                  sociodemograficas del cliente digital. Ahora bien, si no lo requieres,
+                  pues dar clic en continuar.
+                </p>
+                <!-- Género -->
+                <div class="card my-4">
+                  <div class="card-body">
+                    <div class="form-row">
+                      <div class="col-12 col-sm-6">
+                        <h5>Genero</h5>
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            value=""
+                            id="chkSocioDemograficosGeneroHombre"
+                          />
+                          <label
+                            class="form-check-label"
+                            for="chkSocioDemograficosGeneroHombre"
+                          >
+                            Hombre
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            value=""
+                            id="chkSocioDemograficosGeneroMujer"
+                          />
+                          <label
+                            class="form-check-label"
+                            for="chkSocioDemograficosGeneroMujer"
+                          >
+                            Mujer
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-6 mt-4 mt-sm-0"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Edad -->
+                <div class="row mt-3">
+                  <div class="col-12">
+                    <h3 class="text-center">Edad</h3>
+                    <p class="text-center">
+                      Elije el tipo de clasificación de edad del cliente que mas
+                      se adecue a tus necesidades.
+                    </p>
+
+                    <div id="accordionEdad" class="accordion">
+                      <div class="card">
+                        <div class="card-header" id="headingEdad_1">
+                          <h2 class="mb-0">
+                            <button
+                              class="btn btn-link btn-block text-left"
+                              type="button"
+                              data-toggle="collapse"
+                              data-target="#collapseEdad_1"
+                              aria-expanded="true"
+                              aria-controls="collapseEdad_1"
+                            >
+                              <h5>Manual</h5>
+                            </button>
+                          </h2>
+                        </div>
+
+                        <div
+                          id="collapseEdad_1"
+                          class="collapse show"
+                          aria-labelledby="headingEdad_1"
+                          data-parent="#accordionEdad"
+                        >
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-12">
+                                <p class="text-center">
+                                  Elije los minimos y maximos de tu rango de
+                                  edades
+                                </p>
+                                <div class="form-group row">
+                                  <div class="col-12">
+                                    <input
+                                      type="text"
+                                      name="rangeEdad_1"
+                                      id="rangeEdad_1"
+                                    />
+                                  </div>
+                                </div>
+
+                                <p class="text-center">
+                                  ¿Necesitas un rango más?
+                                </p>
+                                <div class="form-group row">
+                                  <div class="col-12">
+                                    <input
+                                      type="text"
+                                      name="rangeEdad_2"
+                                      id="rangeEdad_2"
+                                    />
+                                  </div>
+                                </div>
+
+                                <p class="text-center">¿Otro?</p>
+                                <div class="form-group row">
+                                  <div class="col-12">
+                                    <input
+                                      type="text"
+                                      name="rangeEdad_3"
+                                      id="rangeEdad_3"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="card">
+                        <div id="headingEdad_2" class="card-header">
+                          <button
+                            class="btn btn-link btn-block text-left collapsed"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#collapseEdad_2"
+                            aria-expanded="false"
+                            aria-controls="collapseEdad_2"
+                          >
+                            <h5>Rangos de edad</h5>
+                          </button>
+                        </div>
+                        <div
+                          id="collapseEdad_2"
+                          class="collapse"
+                          data-parent="#accordionEdad"
+                        >
+                          <div class="card-body">
+                            <p class="text-center">
+                              Selecciona los rangos de tu interes
+                            </p>
+                            <div class="row">
+                              <div class="col-sm-3">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRangoEdad_1"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRangoEdad_1"
+                                  >
+                                    15 a 19 años
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRangoEdad_2"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRangoEdad_2"
+                                  >
+                                    20 a 24 años
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRangoEdad_3"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRangoEdad_3"
+                                  >
+                                    25 a 29 años
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRangoEdad_4"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRangoEdad_4"
+                                  >
+                                    30 a 34 años
+                                  </label>
+                                </div>
+                              </div>
+                              <div class="col-sm-3">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRangoEdad_5"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRangoEdad_5"
+                                  >
+                                    35 a 39 años
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRangoEdad_6"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRangoEdad_6"
+                                  >
+                                    40 a 44 años
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRangoEdad_7"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRangoEdad_7"
+                                  >
+                                    45 a 49 años
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRangoEdad_8"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRangoEdad_8"
+                                  >
+                                    50 a 54 años
+                                  </label>
+                                </div>
+                              </div>
+                              <div class="col-sm-3">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRangoEdad_9"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRangoEdad_9"
+                                  >
+                                    55 a 59 años
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRangoEdad_10"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRangoEdad_10"
+                                  >
+                                    60 a 64 años
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRangoEdad_11"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRangoEdad_11"
+                                  >
+                                    65 a 69 años
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRangoEdad_12"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRangoEdad_12"
+                                  >
+                                    70 a 74 años
+                                  </label>
+                                </div>
+                              </div>
+                              <div class="col-sm-3">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRangoEdad_13"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRangoEdad_13"
+                                  >
+                                    75 a 79 años
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRangoEdad_14"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRangoEdad_14"
+                                  >
+                                    80 a 84 años
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkRangoEdad_15"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkRangoEdad_15"
+                                  >
+                                    85 años o más
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header" id="headingEdad_3">
+                          <h2 class="mb-0">
+                            <button
+                              class="btn btn-link btn-block text-left collapsed"
+                              type="button"
+                              data-toggle="collapse"
+                              data-target="#collapseEdad_3"
+                              aria-expanded="false"
+                              aria-controls="collapseEdad_3"
+                            >
+                              <h5>Etapas de vida</h5>
+                            </button>
+                          </h2>
+                        </div>
+                        <div
+                          id="collapseEdad_3"
+                          class="collapse"
+                          aria-labelledby="headingEdad_3"
+                          data-parent="#accordionEdad"
+                        >
+                          <div class="card-body">
+                            <p class="text-center">
+                              Selecciona la etapa de vida para tu analisis
+                            </p>
+                            <br />
+                            <div class="row">
+                              <div class="col-sm-3">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkEtapaIteres_1"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkEtapaIteres_1"
+                                  >
+                                    Adolecentes
+                                  </label>
+                                </div>
+                                <p>Clientes con edades entre 15 y 24 años.</p>
+                              </div>
+                              <div class="col-sm-3">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkEtapaIteres_2"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkEtapaIteres_2"
+                                  >
+                                    Adultos jovenes
+                                  </label>
+                                </div>
+                                <p>Clientes con edades entre 25 y 39 años.</p>
+                              </div>
+                              <div class="col-sm-3">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkEtapaInteres_3"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkEtapaInteres_3"
+                                  >
+                                    Adultos
+                                  </label>
+                                </div>
+                                <p>Clientes con edades entre 40 y 64 años.</p>
+                              </div>
+                              <div class="col-sm-3">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkEtapaInteres_4"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkEtapaInteres_4"
+                                  >
+                                    Jubilados
+                                  </label>
+                                </div>
+                                <p>Clientes con 65 años y más</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="card">
+                        <div class="card-header" id="headingEdad_4">
+                          <h2 class="mb-0">
+                            <button
+                              class="btn btn-link btn-block text-left collapsed"
+                              type="button"
+                              data-toggle="collapse"
+                              data-target="#collapseEdad_4"
+                              aria-expanded="false"
+                              aria-controls="collapseEdad_4"
+                            >
+                              <h5>Generación</h5>
+                            </button>
+                          </h2>
+                        </div>
+                        <div
+                          id="collapseEdad_4"
+                          class="collapse"
+                          aria-labelledby="headingEdad_4"
+                          data-parent="#accordionEdad"
+                        >
+                          <div class="card-body">
+                            <p class="text-center">
+                              Elije la generación adecuada a tu campaña
+                            </p>
+                            <br />
+                            <div class="row">
+                              <div class="col-sm-6">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkGeneracion_1"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkGeneracion_1"
+                                  >
+                                    Generación Z
+                                  </label>
+                                  <p>
+                                    Clientes que nacieron en 1995 hasta el dia
+                                    de hoy
+                                  </p>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkGeneracion_2"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkGeneracion_2"
+                                  >
+                                    Millennials (Y)
+                                  </label>
+                                  <p>Clientes que nacieron entre 1982 y 1994</p>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkGeneracion_3"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkGeneracion_3"
+                                  >
+                                    Generación X
+                                  </label>
+                                  <p>Clientes que nacieron entre 1965 y 1981</p>
+                                </div>
+                              </div>
+                              <div class="col-sm-6">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkGeneracion_4"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkGeneracion_4"
+                                  >
+                                    Baby Boom
+                                  </label>
+                                  <p>Clientes que nacieron entre 1945 y 1964</p>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkGeneracion_5"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkGeneracion_5"
+                                  >
+                                    Generación Silenciosa
+                                  </label>
+                                  <p>Clientes que nacieron entre 1925 y 1944</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <!-- Nivel de escolaridad -->
+                      <div class="col-sm-6">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">Nivel de escolaridad</h5>
+                            <div class="card-text">
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkEscolaridad_1"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkEscolaridad_1"
+                                >
+                                  Sin estudios
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkEscolaridad_2"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkEscolaridad_2"
+                                >
+                                  Primaria
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkEscolaridad_3"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkEscolaridad_3"
+                                >
+                                  Secundaria
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkEscolaridad_4"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkEscolaridad_4"
+                                >
+                                  Carrera Técnica
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkEscolaridad_5"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkEscolaridad_5"
+                                >
+                                  Preparatoria
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkEscolaridad_6"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkEscolaridad_6"
+                                >
+                                  Profesional
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkEscolaridad_7"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkEscolaridad_7"
+                                >
+                                  No identificado
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Estado civil -->
+                      <div class="col-sm-6">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">Estado Civil</h5>
+                            <div class="card-text">
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkEstadoCivil_1"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkEstadoCivil_1"
+                                >
+                                  Casado
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkEstadoCivil_2"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkEstadoCivil_2"
+                                >
+                                  Soltero
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkEstadoCivil_3"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkEstadoCivil_3"
+                                >
+                                  Union Libre
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkEstadoCivil_4"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkEstadoCivil_4"
+                                >
+                                  Divorciado
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkEstadoCivil_5"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkEstadoCivil_5"
+                                >
+                                  Viudo
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkEstadoCivil_6"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkEstadoCivil_6"
+                                >
+                                  Profesional
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkEstadoCivil_7"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkEstadoCivil_7"
+                                >
+                                  Sin Identificar
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+
+                    <!---->
+                    <div class="row">
+                      <!-- Integrantes del hogar -->
+                      <div class="col-sm-6">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">Integrantes del hogar</h5>
+                            <div class="card-text">
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkIntegrantesHogar_1"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkIntegrantesHogar_1"
+                                >
+                                  1 persona
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkIntegrantesHogar_2"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkIntegrantesHogar_2"
+                                >
+                                  2 personas
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkIntegrantesHogar_3"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkIntegrantesHogar_3"
+                                >
+                                  3 personas
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkIntegrantesHogar_4"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkIntegrantesHogar_4"
+                                >
+                                  4 personas
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkIntegrantesHogar_5"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkIntegrantesHogar_5"
+                                >
+                                  5 personas
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkIntegrantesHogar_6"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkIntegrantesHogar_6"
+                                >
+                                  6 o más personas
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkIntegrantesHogar_7"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkIntegrantesHogar_7"
+                                >
+                                  Sin dato
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Integrantes del hogar que trabajan -->
+                      <div class="col-sm-6">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">
+                              Integrantes del hogar que trabajan
+                            </h5>
+                            <div class="card-text">
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkIntegrantesHogarTrabajan_1"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkIntegrantesHogarTrabajan_1"
+                                >
+                                  1 persona
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkIntegrantesHogarTrabajan_2"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkIntegrantesHogarTrabajan_2"
+                                >
+                                  2 personas
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkIntegrantesHogarTrabajan_3"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkIntegrantesHogarTrabajan_3"
+                                >
+                                  3 personas
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkIntegrantesHogarTrabajan_4"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkIntegrantesHogarTrabajan_4"
+                                >
+                                  4 personas
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkIntegrantesHogarTrabajan_5"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkIntegrantesHogarTrabajan_5"
+                                >
+                                  5 o más personas
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkIntegrantesHogarTrabajan_6"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkIntegrantesHogarTrabajan_6"
+                                >
+                                  Sin dato
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!---->
+                  </div>
+                </div>
+
+                <!-- Salario -->
+                <div class="row mt-4">
+                  <div class="col-12">
+                    <h3 class="text-center">Salario</h3>
+                    <p class="text-center">
+                      Elije el ingreso del cliente que mejor consideres.
+                    </p>
+                    <div id="accordionSalario" class="accordion">
+                      <div class="card">
+                        <div class="card-header" id="headingSalario_1">
+                          <button
+                            class="btn btn-link btn-block text-left"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#collapseSalarioMinimo"
+                            aria-expanded="true"
+                            aria-controls="collapseSalarioMinimo"
+                          >
+                            Salarios minimos
+                            <p class="m-0">
+                              Salario mínimo general vigente a partir del 1° de
+                              enero de 2020 corresponde a $123.22 pesos
+                            </p>
+                          </button>
+                        </div>
+
+                        <div
+                          id="collapseSalarioMinimo"
+                          class="collapse show"
+                          aria-labelledby="headingSalario_1"
+                          data-parent="#accordionSalario"
+                        >
+                          <div class="card-body">
+                            <p class="text-center">
+                              Selecciona los rangos de salario minimo requerido
+                            </p>
+
+                            <div class="row">
+                              <div class="col-sm-4">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkSalario_1"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkSalario_1"
+                                  >
+                                    Menor o igual a 1 SM
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkSalario_2"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkSalario_2"
+                                  >
+                                    Hasta 2 SM
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkSalario_3"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkSalario_3"
+                                  >
+                                    Hasta 3 SM
+                                  </label>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkSalario_4"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkSalario_4"
+                                  >
+                                    Hasta 4 SM
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkSalario_5"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkSalario_5"
+                                  >
+                                    De 5 a 10 SM
+                                  </label>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkSalario_6"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkSalario_6"
+                                  >
+                                    De 11 a 25 SM
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkSalario_7"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkSalario_7"
+                                  >
+                                    Mayor a 25 SM
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div id="headingSalario_2" class="card-header">
+                          <button
+                            class="btn btn-link btn-block text-left collapsed"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#collapseIngresoPromedioMensual"
+                            aria-expanded="false"
+                            aria-controls="collapseIngresoPromedioMensual"
+                          >
+                            Ingreso promedio mensual
+                            <p class="m-0">
+                              Elije los minimos y maximos del ingreso promedio
+                              mensual
+                            </p>
+                          </button>
+                        </div>
+
+                        <div
+                          id="collapseIngresoPromedioMensual"
+                          class="collapse"
+                          aria-labelledby="headingSalario_2"
+                          data-parent="#accordionSalario"
+                        >
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-12">
+                                <p class="text-center">
+                                  Salario promedio mensual
+                                </p>
+
+                                <div class="form-group row">
+                                  <div class="col-12">
+                                    <input
+                                      type="text"
+                                      name="rangeSalarioPromedioMensual"
+                                      id="rangeSalarioPromedioMensual"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="card">
+                        <div id="headingSalario_3" class="card-header">
+                          <button
+                            class="btn btn-link btn-block text-left collapsed"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#collapseNivelSocioEconomico"
+                            aria-expanded="false"
+                            aria-controls="collapseNivelSocioEconomico"
+                          >
+                            Nivel socioeconómico
+                            <p class="m-0">
+                              Selecciona el Nivel Socieconomico de tu interes.
+                              *Datos calculados al 2020
+                            </p>
+                          </button>
+                        </div>
+
+                        <div
+                          id="collapseNivelSocioEconomico"
+                          class="collapse"
+                          aria-labelledby="headingSalario_3"
+                          data-parent="#accordionSalario"
+                        >
+                          <div class="card-body">
+                            <p class="text-center mb-5">
+                              Selecciona los rangos de nivel socioeconómico de
+                              tu interes
+                            </p>
+                            <div class="row">
+                              <div class="col-sm-4">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkNivelSocioEconomico_1"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkNivelSocioEconomico_1"
+                                    title="Ingreso promedio mensual $94,864"
+                                  >
+                                    A/B
+                                    <p>Ingreso promedio mensual $94,864</p>
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkNivelSocioEconomico_2"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkNivelSocioEconomico_2"
+                                    title="Ingreso promedio mensual $39,061"
+                                  >
+                                    C+
+                                    <p>Ingreso promedio mensual $39,061</p>
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkNivelSocioEconomico_3"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkNivelSocioEconomico_3"
+                                    title="Ingreso promedio mensual $22,205"
+                                  >
+                                    C
+                                    <p>Ingreso promedio mensual $22,205</p>
+                                  </label>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkNivelSocioEconomico_4"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkNivelSocioEconomico_4"
+                                    title="Ingreso promedio mensual $16,740"
+                                  >
+                                    C-
+                                    <p>Ingreso promedio mensual $16,740</p>
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkNivelSocioEconomico_5"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkNivelSocioEconomico_5"
+                                    title="Ingreso promedio mensual $12,945"
+                                  >
+                                    D+
+                                    <p>Ingreso promedio mensual $12,945</p>
+                                  </label>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkNivelSocioEconomico_6"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkNivelSocioEconomico_6"
+                                    title="Ingreso promedio mensual $7,833"
+                                  >
+                                    D
+                                    <p>Ingreso promedio mensual $7,833</p>
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="chkNivelSocioEconomico_7"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="chkNivelSocioEconomico_7"
+                                    title="Ingreso promedio mensual $3,712"
+                                  >
+                                    E
+                                    <p>Ingreso promedio mensual $3,712</p>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </section>
+            <!-- END SOCIODEMOGRÁFICOS -->
+
+            <!-- SECCIÓN COMPORTAMIENTO DEL CLIENTE -->
+            <section
+              v-show="pasoSeleccionado === 2"
+              class="mt-3"
+              data-animation="scaleIn"
+            >
+              <article>
+                <h3 class="text-center">
+                  Categoria Comportamiento del cliente
+                </h3>
+
+                <p class="text-center">
+                  En Comportamiento del cliente puedes filtrar las
+                  caracteristacas del comportamiento de compra del cliente digital.
+                  Ahora bien, si no lo requieres, pues dar clic en continuar.
+                </p>
+
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row my-5">
+                      <div class="col-12 col-lg-4 mb-3">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5>Puntualidad</h5>
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="chkComportamientoPuntualidad_1"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="chkComportamientoPuntualidad_1"
+                              >
+                                Cliente A
+                              </label>
+                            </div>
+
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="chkComportamientoPuntualidad_2"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="chkComportamientoPuntualidad_2"
+                              >
+                                Cliente B
+                              </label>
+                            </div>
+
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="chkComportamientoPuntualidad_3"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="chkComportamientoPuntualidad_3"
+                              >
+                                Cliente C
+                              </label>
+                            </div>
+
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="chkComportamientoPuntualidad_4"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="chkComportamientoPuntualidad_4"
+                              >
+                                Cliente D
+                              </label>
+                            </div>
+
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="chkComportamientoPuntualidad_5"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="chkComportamientoPuntualidad_5"
+                              >
+                                Cliente Nuevo
+                              </label>
+                            </div>
+
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="chkComportamientoPuntualidad_6"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="chkComportamientoPuntualidad_6"
+                              >
+                                Cliente Moroso
+                              </label>
+                            </div>
+
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="chkComportamientoPuntualidad_7"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="chkComportamientoPuntualidad_7"
+                              >
+                                Sin Dato/No incluir
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-12 col-lg-4 mb-3">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5>Tipo de cliente</h5>
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="chkComportamientoTipoCliente_1"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="chkComportamientoTipoCliente_1"
+                              >
+                                Contado
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="chkComportamientoTipoCliente_2"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="chkComportamientoTipoCliente_2"
+                              >
+                                Credito Titular
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="chkComportamientoTipoCliente_3"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="chkComportamientoTipoCliente_3"
+                              >
+                                Credito Adicional
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="chkComportamientoTipoCliente_4"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="chkComportamientoTipoCliente_4"
+                              >
+                                Credito Especial
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="chkComportamientoTipoCliente_5"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="chkComportamientoTipoCliente_5"
+                              >
+                                Empleado Titular
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="chkComportamientoTipoCliente_6"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="chkComportamientoTipoCliente_6"
+                              >
+                                Cliente Moroso
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="chkComportamientoTipoCliente_7"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="chkComportamientoTipoCliente_7"
+                              >
+                                Sin Dato/No incluir
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-12 col-lg-4">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5>¿Es cliente digital?</h5>
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="chkComportamientoEsCliente_1"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="chkComportamientoEsCliente_1"
+                              >
+                                Si
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="chkComportamientoEsCliente_2"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="chkComportamientoEsCliente_2"
+                              >
+                                No
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row my-5">
+                      <!-- Antiguedad del cliente -->
+                      <div class="col-12 col-lg-6 mb-3">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="text-center">Antiguedad del cliente</h5>
+
+                            <p class="text-center">
+                              Elije los minimos y maximos de años de antiguedad
+                              del cliente comprando en Coppel
+                            </p>
+
+                            <div class="form-group row">
+                              <div class="col-12">
+                                <input
+                                  type="text"
+                                  id="rangeAntiguedadCliente"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Última actividad del cliente -->
+                      <div class="col-12 col-lg-6">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="text-center">Ultima actividad</h5>
+                            <p class="text-center">
+                              Elije los minimos y maximos en meses de la ultima actividad en Coppel del cliente
+                            </p>
+
+                            <div class="form-group row">
+                              <div class="col-12">
+                                <input
+                                  type="text"
+                                  id="rangeClienteUltimaActividad"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row my-5">
+                      <div class="col-12 col-lg-4 mb-3">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="mb-3 text-sm text-center">
+                              Fecha de ultima actividad en Ropa
+                            </h5>
+                            <div class="flex justify-center">
+                              <v-date-picker
+                                color="red"
+                                v-model="fechaUltimaActividadR"
+                                is-range
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-lg-4 mb-3">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="mb-3 text-sm text-center">
+                              Fecha de ultima actividad en Muebles
+                            </h5>
+                            <div class="flex justify-center">
+                              <v-date-picker
+                                color="green"
+                                v-model="fechaUltimaActividadM"
+                                is-range
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-lg-4">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="mb-3 text-sm text-center">
+                              Fecha de ultima actividad en Tiempo Aire
+                            </h5>
+                            <div class="flex justify-center">
+                              <v-date-picker
+                                color="orange"
+                                v-model="fechaUltimaActividadT"
+                                is-range
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div class="card">
+                        <div class="card-body">
+                          <h4 class="text-center">Credito y abonos del cliente</h4>
+                          <p class="text-center">
+                            En esta sección podras seleccionar algunas de las
+                            carateristicas del credito y abonos digitales del cliente
+                          </p>
+
+                          <div class="row">
+                            <div class="col-12 col-lg-6 mb-3">
+                              <div class="card">
+                                <div class="card-body">
+                                  <div class="card-text">
+                                    <h5 class="text-center">Importe Abonado</h5>
+                                    <p class="text-center">
+                                      Elije los minimos y maximos de la linea de
+                                      credito otorgada al cliente
+                                    </p>
+                                    <div class="form-group row">
+                                      <div class="col-12">
+                                        <input
+                                          type="text"
+                                          id="rangeImporteAbonado"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12 col-lg-6 mb-3">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h5 class="text-center">Canal de Abono</h5>
+                                  <div class="card-text">
+                                    <div class="form-check">
+                                      <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="chkCanalDeAbono_1"
+                                      />
+                                      <label
+                                        class="form-check-label"
+                                        for="chkCanalDeAbono_1"
+                                      >
+                                        Coppel.com
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="chkCanalDeAbono_2"
+                                      />
+                                      <label
+                                        class="form-check-label"
+                                        for="chkCanalDeAbono_2"
+                                      >
+                                        App Coppel
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="chkCanalDeAbono_3"
+                                      />
+                                      <label
+                                        class="form-check-label"
+                                        for="chkCanalDeAbono_3"
+                                      >
+                                        Whatsapp
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="chkCanalDeAbono_4"
+                                      />
+                                      <label
+                                        class="form-check-label"
+                                        for="chkCanalDeAbono_4"
+                                      >
+                                        Sin identificar
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-12 col-lg-6 mb-3">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h5 class="text-center">Linea de Crédito</h5>
+                                  <div class="form-group row">
+                                    <div class="col-12">
+                                      <input type="text" id="rangeLineaDeC" />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12 col-lg-6 mb-3">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h5 class="mb-3 text-center">
+                                    Fecha del ultimo movimiento de Abono
+                                  </h5>
+                                  <div class="flex justify-center">
+                                    <v-date-picker
+                                      v-model="fechaUltimoMovimientoA"
+                                      mode="date"
+                                      color="indigo"
+                                      is-range
+                                    >
+                                    </v-date-picker>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </section>
+            <!-- END COMPORTAMIENTO DEL CLIENTE -->
+
+            <!-- SECCIÓN GEOGRÁFICOS -->
+            <section
+              v-show="pasoSeleccionado === 3"
+              class="mt-3"
+              data-animation="scaleIn"
+            >
+              <article>
+                <h3 class="text-center">Categoria Geograficos</h3>
+                <p>
+                  La categorias geograficas te permiten filtrar varias opciones
+                  de ubicacion del cliente digital. Ahora bien, si no lo requieres, pues
+                  dar clic en continuar.
+                </p>
+                <div class="form-row my-4">
+                  <div class="col-12 col-sm-6">
+                    <select class="form-control">
+                      <option selected="selected">Estado</option>
+                      <option>AGUASCALIENTES</option>
+                      <option>BAJA CALIFORNIA</option>
+                      <option>BAJA CALIFORNIA SUR</option>
+                      <option>CAMPECHE</option>
+                      <option>COAHUILA DE ZARAGOZA</option>
+                      <option>COLIMA</option>
+                      <option>CHIAPAS</option>
+                      <option>CHIHUAHUA</option>
+                      <option>CIUDAD DE MEXICO</option>
+                      <option>DURANGO</option>
+                      <option>GUANAJUATO</option>
+                      <option>GUERRERO</option>
+                      <option>HIDALG</option>
+                      <option>JALISCO</option>
+                      <option>MEXICO</option>
+                      <option>MICHOACAN DE OCAMPO</option>
+                      <option>MORELOS</option>
+                      <option>NAYARIT</option>
+                      <option>NUEVO LEON</option>
+                      <option>OAXACA</option>
+                      <option>PUEBLA</option>
+                      <option>QUERETARO</option>
+                      <option>QUINTANA ROO</option>
+                      <option>SAN LUIS POTOSI</option>
+                      <option>SINALOA</option>
+                      <option>SONORA</option>
+                      <option>TABASCO</option>
+                      <option>TAMAULIPAS</option>
+                      <option>TLAXCALA</option>
+                      <option>VERACRUZ DE IGNACIO DE LA LLAVE</option>
+                      <option>YUCATAN</option>
+                      <option>ZACATECAS</option>
+                    </select>
+                  </div>
+                  <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                    <select class="form-control">
+                      <option selected="selected">Municipio</option>
+                      <option>ACAMBAY</option>
+                      <option>ACOLMAN</option>
+                      <option>ACULCO</option>
+                      <option>ALMOLOYA DE ALQUISIRAS</option>
+                      <option>ALMOLOYA DE JUAREZ</option>
+                      <option>ALMOLOYA DEL RIO</option>
+                      <option>AMANALCO</option>
+                      <option>AMATEPEC</option>
+                      <option>AMECAMECA</option>
+                      <option>APAXCO</option>
+                      <option>ATENCO</option>
+                      <option>ATIZAPAN</option>
+                      <option>ATIZAPAN DE ZARAGOZA</option>
+                      <option>ATLAUTLA</option>
+                      <option>AXAPUSCO</option>
+                      <option>AYAPANGO</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-12 col-md-6 mb-3">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="card-text">
+                              <h5>Tipo de ciudad</h5>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkTipoCiudad_1"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkTipoCiudad_1"
+                                >
+                                  Zonas Metropolitanas
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkTipoCiudad_2"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkTipoCiudad_2"
+                                >
+                                  Conurbacion
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkTipoCiudad_3"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkTipoCiudad_3"
+                                >
+                                  Centros Urbanos
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkTipoCiudad_4"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkTipoCiudad_4"
+                                >
+                                  n/a
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="card-text">
+                              <h5>Clusters de Ciudades</h5>
+                              <p>
+                                Analitica Digital calculó 104 cluster territoriales que
+                                comparten caracteristicas fisicas, demograficas,
+                                economicas, consumo y vias de comunicación
+                                similares entre espacios urbanos y son nombradas
+                                a razon de la ciudad principal.
+                              </p>
+                              <select class="form-control">
+                                <option selected="selected">Clusters</option>
+                                <option value="1">opción 1</option>
+                                <option value="2">opción 2</option>
+                                <option value="3">opción 3</option>
+                                <option value="4">opción 4</option>
+                                <option value="5">opción 5</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-12 col-md-4 mb-3">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5>Division Coppel</h5>
+                            <div class="card-text">
+                              <p>
+                                Grandes extensiones territoriales en las que se
+                                divide el territorio nacional para la organización de Coppel
+                              </p>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkDivisionC_1"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkDivisionC_1"
+                                >
+                                  División Tienda I
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkDivisionC_2"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkDivisionC_2"
+                                >
+                                  División Tienda II 
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkDivisionC_3"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkDivisionC_3"
+                                >
+                                  División Tienda III
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkDivisionC_4"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkDivisionC_4"
+                                >
+                                  División Tienda IV
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkDivisionC_5"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkDivisionC_5"
+                                >
+                                  División Tienda V
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-4 mb-3">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5>Regiones Nielsen / AMVO</h5>
+                            <div class="card-text">
+                              <p>
+                                Grandes extensiones territoriales en las que se
+                                divide e territorio nacional para la organización de Coppel
+                              </p>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkRegionNielsen_1"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkRegionNielsen_1"
+                                >
+                                  División Tienda I
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkRegionNielsen_2"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkRegionNielsen_2"
+                                >
+                                  División Tienda II
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkRegionNielsen_3"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkRegionNielsen_3"
+                                >
+                                   División Tienda III
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkRegionNielsen_4"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkRegionNielsen_4"
+                                >
+                                  División Tienda IV
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkRegionNielsen_5"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkRegionNielsen_5"
+                                >
+                                   División Tienda V
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-4">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5>Regiones AIM</h5>
+                            <div class="card-text">
+                              <p>
+                                Grandes extensiones territoriales en las que se
+                                divide e territorio nacional para analisis de
+                                mercado segun la Asocion de Internet de Mexico.
+                              </p>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkRegionesAIM_1"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkRegionesAIM_1"
+                                >
+                                  Centro Norte
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkRegionesAIM_2"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkRegionesAIM_2"
+                                >
+                                  Centro Sur
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkRegionesAIM_3"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkRegionesAIM_3"
+                                >
+                                  Este
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkRegionesAIM_4"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkRegionesAIM_4"
+                                >
+                                  No identificad
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkRegionesAIM_5"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkRegionesAIM_5"
+                                >
+                                  Noreste
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkRegionesAIM_6"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkRegionesAIM_6"
+                                >
+                                  Noroeste
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkRegionesAIM_7"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkRegionesAIM_7"
+                                >
+                                  Oeste
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkRegionesAIM_8"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkRegionesAIM_8"
+                                >
+                                  Sureste
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="chkRegionesAIM_9"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="chkRegionesAIM_9"
+                                >
+                                  Suroeste
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--Google map-->
+                <div class="min-vh-50">
+                  <div class="embed-responsive embed-responsive-16by9">
+                    <iframe
+                      class="embed-responsive-item"
+                      src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d5287197.88756685!2d-101.89025342665099!3d23.78338017554413!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2smx!4v1603843493857!5m2!1ses!2smx"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                </div>
+                <!--Google Maps-->
+              </article>
+            </section>
+            <!-- END SECCIÓN GEOGRÁFICOS -->
+
+            <!-- SECCIÓN ARCHIVOS DE SALIDA -->
+            <section
+              v-show="pasoSeleccionado === 4"
+              class="mt-3"
+              data-animation="scaleIn"
+            >
+              <h3 class="text-center">Datos</h3>
+              <p class="text-center">
+                ¡Ya casí terminas! <br />
+                Aquí deberas elegir la información del cliente que te es util
+                para tu campaña o proyecto. El formato del archivo que se
+                exportará es en .csv
+              </p>
+
+              <h5>Datos a exportar</h5>
+              <div class="card">
+                <div class="card-body">
+                  <div class="form-row mt-4">
+                    <div class="col-md-4">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id="chkDatos_idClient"
+                        />
+                        <label class="form-check-label" for="chkDatos_idClient">
+                          id Cliente
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id="chkDatos_genero"
+                        />
+                        <label class="form-check-label" for="chkDatos_genero">
+                          Genero
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id="chkDatos_nombrePropio"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="chkDatos_nombrePropio"
+                        >
+                          Nombre propio
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id="chkDatos_apellidoPaterno"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="chkDatos_apellidoPaterno"
+                        >
+                          Apellido Paterno
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id="chkDatos_apellidoMaterno"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="chkDatos_apellidoMaterno"
+                        >
+                          Apellido Materno
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id="chkDatos_correoElectronico"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="chkDatos_correoElectronico"
+                        >
+                          Correo electronico
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id="chkDatos_telefono"
+                        />
+                        <label class="form-check-label" for="chkDatos_telefono">
+                          Telefono
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- END SECCIÓN ARCHIVOS DE SALIDA -->
+
+            <!-- SECCIÓN ENCUESTA -->
+            <section
+              v-show="pasoSeleccionado === 5"
+              class="mt-3"
+              data-animation="scaleIn"
+            >
+              <h3 class="text-center">Formulario</h3>
+              <p class="text-center">Tu archivo esta listo</p>
+              <p class="text-center">
+                Pero antes, apoyanos completando la siguiente información.
+              </p>
+              <div class="card">
+                <div class="card-body">
+                  <form>
+                    <div class="form-group row">
+                      <label for="nombre" class="col-sm-4 col-form-label"
+                        >Tu nombre</label
+                      >
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" id="nombr" />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="area" class="col-sm-4 col-form-label"
+                        >Área a la que perteneces</label
+                      >
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" id="are" />
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="tipo" class="col-sm-4 col-form-label"
+                        >¿Para que utilizaras tu segmento o
+                        recomendación?</label
+                      >
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" id="tip" />
+                      </div>
+                    </div>
+
+                    <fieldset class="form-group">
+                      <div class="row">
+                        <div class="col-form-label col-12 col-md-4 pt-0">
+                          ¿En que canal enviaras el segmento o recomendación?
+                        </div>
+                        <div class="col-12 col-md-8">
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="radiosCanalSegmento"
+                              id="radioEmail"
+                              value="email"
+                            />
+                            <label class="form-check-label" for="radioEmail">
+                              Email
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="radiosCanalSegmento"
+                              id="radioSMS"
+                              value="sms"
+                            />
+                            <label class="form-check-label" for="radioSMS">
+                              SMS
+                            </label>
+                          </div>
+                          <div class="form-check disabled">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="radiosCanalSegmento"
+                              id="radioPaidMedi"
+                              value="paid medi"
+                            />
+                            <label class="form-check-label" for="radioPaidMedi">
+                              Paid Medi
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="radiosCanalSegmento"
+                              id="radioVentaPorTelefono"
+                              value="venta por telefono"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="radioVentaPorTelefono"
+                            >
+                              Venta por Telefono
+                            </label>
+                          </div>
+                          <div class="form-check disabled">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="radiosCanalSegmento"
+                              id="radioOtro"
+                              value="otro"
+                            />
+                            <label class="form-check-label" for="radioOtro">
+                              Otro
+                            </label>
+                          </div>
+                          <div class="form-group row">
+                            <label
+                              for="otroTipoSegmento"
+                              class="col-12 col-sm-3 col-form-label"
+                              >¿Cual?</label
+                            >
+                            <div class="col-12 col-sm-9">
+                              <input
+                                type="text"
+                                class="form-control"
+                                id="otroTipoSegmento"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label
+                          for="nombre"
+                          class="col-12 col-md-4 col-form-label"
+                          >¿Podrias compartirnos el nombre de tu campaña o
+                          proyecto?
+                        </label>
+                        <div class="col-12 col-md-8">
+                          <input type="text" class="form-control" id="nombre" />
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label
+                          for="area"
+                          class="col-12 col-md-4 col-form-label flex items-center"
+                          >¿Cual es la fecha de inicio de tu campaña o
+                          proyecto?</label
+                        >
+                        <div class="col-12 col-md-8 flex justify-center items-center">
+                          <v-date-picker
+                            class="border border-8 rounded w-full flex justify-center"
+                            v-model="fechaInicioCampanaOProyecto"
+                            mode="date"
+                            color="indigo"
+                            is24hr
+                          >
+                            <template v-slot="{ inputValue, inputEvents }">
+                              <input
+                                class="text-center px-2 py-1 focus:outline-none focus:border-blue-300"
+                                :value="inputValue"
+                                v-on="inputEvents"
+                              />
+                            </template>
+                          </v-date-picker>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label
+                          for="correoElectronicoDestinatario"
+                          class="col-12 col-md-4 col-form-label"
+                          >Correo electronico donde enviaremos tu
+                          archivo.</label
+                        >
+                        <div class="col-12 col-md-8">
+                          <input
+                            type="email"
+                            class="form-control"
+                            id="correoElectronicoDestinatario"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label
+                          for="nombreArchivo"
+                          class="col-12 col-md-4 col-form-label"
+                          >¿Como quieres nombrar tu archivo?</label
+                        >
+                        <div class="col-12 col-md-8">
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="nombreArchivo"
+                          />
+                        </div>
+                      </div>
+                      <h4 class="text-center">¡Listo!</h4>
+                    </fieldset>
+                  </form>
+                </div>
+              </div>
+            </section>
+            <!-- END SECCIÓN ENCUESTA -->
+
+            <!-- Botones para seleccionar paso -->
+            <section class="flex justify-between pt-3">
+              <a
+                href="#"
+                type="button"
+                v-if="showPrevButton"
+                v-on:click="prevSection"
+                class="btn btn-primary"
+                title="Prev"
+              >
+                Anterior
+              </a>
+              <a
+                title="Next"
+                type="button"
+                v-if="showNextButton"
+                v-on:click="nextSection"
+                class="btn btn-primary ml-auto"
+                href="#app"
+              >
+                Continuar
+              </a>
+              <!-- 
+                Botón para descargar, botón que se muestra al final de los pasos
+              -->
+              <button
+                v-if="!showNextButton"
+                class="btn btn-primary ml-auto"
+                title="Next"
+              >
+                Descargar y enviar
+              </button>
+            </section>
+          </div>
+          <!-- END content steps -->
+        </div>
+      </main>
+      <!-- End Content -->
+
+      <!-- Footer -->
+      <footer id="my_footer" class="flex flex-col justify-around">
+        <div class="img flex justify-center">
+          <img
+            class=""
+            src="./assets/img/coppel.png"
+            width="120"
+            alt=""
+            srcset=""
+          />
+        </div>
+
+        <p class="m-0 flex justify-content-center items-center font-bold">
+          © Coppel 2020 | Analítica Digital
+        </p>
+      </footer>
+      <!-- End Footer -->
+    </div>
+
+    <!-- Vue -->
+    <!-- version, includes helpful console warnings -->
+    <!-- <script src="https://unpkg.com/vue/dist/vue.js"></script> -->
+    <!-- production version, optimized for size and speed -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <!-- Link VCalendar Javascript (Plugin automatically installed) -->
+    <script src="https://unpkg.com/v-calendar"></script>
+
+    <!-- Custom js -->
+    <script src="./assets/js/main.js"></script>
+
+    <!-- Scripts -->
+    <!-- jQuery and JS bundle w/ Popper.js -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Slider -->
+    <script src="http://bootstraptema.ru/plugins/2018/irs/ion.rangeSlider.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        //
+        // Rangos de la sección de: Manual -> edad
+        //
+        const ManualEdades = [
+          { type: "double", grid: true, min: 18, max: 85, from: 35, to: 70 },
+          { type: "double", grid: true, min: 18, max: 85, from: 35, to: 70 },
+          { type: "double", grid: true, min: 18, max: 85, from: 35, to: 70 },
+        ];
+
+        $("#rangeEdad_1").ionRangeSlider(ManualEdades[0]);
+        $("#rangeEdad_2").ionRangeSlider(ManualEdades[1]);
+        $("#rangeEdad_3").ionRangeSlider(ManualEdades[2]);
+
+        //
+        // Rangos de la sección del comportamiento del cliente
+        //
+        const rangeAntiguedadCliente = {
+          type: "double",
+          grid: true,
+          from: 3,
+          values: [
+            "1916",
+            "1936",
+            "1956",
+            "1976",
+            "1996",
+            "2016",
+            "2020",
+            
+          ],
+        };
+        $("#rangeAntiguedadCliente").ionRangeSlider(rangeAntiguedadCliente);
+
+        const rangeClienteUltimaActividad = {
+          type: "double",
+          grid: true,
+          from: 3,
+          values: [
+            "1 mes",
+            "2 meses",
+            "3 meses",
+            "4 meses",
+            "5 meses",
+            "6 meses",
+            "7 meses",
+            "8 meses",
+            "9 meses",
+            "10 meses",
+            "11 meses",
+            "12 meses",
+            "13 meses",
+            "14 meses",
+            "15 meses",
+            "16 meses",
+            "17 meses",
+            "18 meses",
+          ],
+        };
+        $("#rangeClienteUltimaActividad").ionRangeSlider(
+          rangeClienteUltimaActividad
+        );
+
+        const rangeSalarioPromedioMensual = {
+          type: "double",
+          grid: true,
+          min: 0,
+          max: 100000,
+          from: 15000,
+          to: 20000,
+          prefix: "$",
+          step: 5000,
+        };
+        $("#rangeSalarioPromedioMensual").ionRangeSlider(
+          rangeSalarioPromedioMensual
+        );
+
+        const rangeImporteAbonado = {
+          type: "double",
+          grid: true,
+          min: 0,
+          max: 100,
+          from: 20,
+          to: 45,
+          prefix: "$",
+        };
+        $("#rangeImporteAbonado").ionRangeSlider(rangeImporteAbonado);
+        $("#rangeLineaDeC").ionRangeSlider(rangeImporteAbonado);
+      });
+    </script>
+  </body>
+</html>
